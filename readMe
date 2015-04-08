@@ -1,0 +1,8 @@
+zainstaluj crossbar.io
+
+cmd -> crossbar init
+cmd -> crossbar start
+
+uruchom WAMPBackend.py
+
+uruchom Front.html i ciesz ogromomem mozliwosci naszego programu

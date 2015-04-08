@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Hello ZingChart World</title>
+<script src="http://cdn.zingchart.com/zingchart.min.js"></script>
+<script>
+var temp=0;
+var isPresented=true;
+var timeStamp=""
+var chartData={
+  "type": "bar",
+  "refresh":{
+	    "type":"feed",
+	    "transport":"js",
+	    "url":"feed()",
+	    "interval":100
+	},
+  "series": [
+    { "values": [] }
+  ]
+};
+function feed(callback) {
+	var tick = {};
+ tick.plot0 = [timeStamp,temp];
+    
+    console.log("generated to chart:",JSON.stringify(tick));
+    callback(JSON.stringify(tick));
+    temp=0;
+};
+
+function on_topic2(args, kwargs, callback) {
+	   //document.getElementById("id1").innerHTML=args[0];
+	isPresented=false;   
+    temp+=args[0]
+    console.log("got event:",JSON.stringify(temp),args[1]);
+    timeStamp=args[1];
+};
+
+window.onload=function(){
+  zingchart.render({
+    id:'chartDiv',
+    height:400,
+    width:600,
+    data:chartData
+  });
+};
+</script>
+</head>
+<body>
+  <h1>PubSub Complex Event Frontend</h1>
+    <p>Open JavaScript console to watch output.</p>
+      <div id='chartDiv'></div>
+      <p id="id1">niczo</p>
+</body>
+   <script src="https://autobahn.s3.amazonaws.com/autobahnjs/latest/autobahn.min.jgz"></script>
+   <script src="JSFront.js"></script>
+</html>

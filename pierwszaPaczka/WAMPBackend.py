@@ -20,16 +20,7 @@ class Component(ApplicationSession):
     @inlineCallbacks
     def onJoin(self, details):
        
-        from autobahn.twisted.websocket import WebSocketServerProtocol, \
-         WebSocketServerFactory
-        from SimpleWebSocketServer import MyServerProtocol
-        from twisted.internet import reactor
         print("session attached")
-        factory = WebSocketServerFactory("ws://localhost:9000", debug=False)
-        factory.protocol = MyServerProtocol
-        # factory.setProtocolOptions(maxConnections=2)
-        reactor.listenTCP(9000,factory)
-        
         
         
         
